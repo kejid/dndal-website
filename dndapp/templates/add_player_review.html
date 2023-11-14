@@ -1,0 +1,8 @@
+<!-- dndapp/templates/dndapp/add_player_review.html -->
+
+<h2>Review for Game Session: {{ game_session.description }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Review</button>
+</form>

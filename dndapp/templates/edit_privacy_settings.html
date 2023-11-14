@@ -1,0 +1,8 @@
+<!-- dndapp/templates/dndapp/edit_privacy_settings.html -->
+
+<h2>Edit Privacy Settings</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Settings</button>
+</form>

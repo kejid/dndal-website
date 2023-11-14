@@ -1,0 +1,8 @@
+<!-- dndapp/templates/dndapp/apply_to_game.html -->
+
+<h2>Apply to Game Session: {{ game_session.description }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Apply</button>
+</form>

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'dndapp/styles.css' %}">
+
+<div class="container profile-page">
+    <div class="user-info">
+        <h2>User Profile</h2>
+        <p><strong>Name:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <!-- Add more user fields as needed -->
+    </div>
+
+    <div class="characters">
+        <h3>Your Characters</h3>
+        {% for character in user.character_set.all %}
+            <div class="character">
+                <p><strong>Name:</strong> {{ character.name }}</p>
+                <p><strong>Race:</strong> {{ character.race }}</p>
+                <p><strong>Class:</strong> {{ character.class }}</p>
+                <!-- Add more character fields as needed -->
+            </div>
+        {% empty %}
+            <p>No characters found.</p>
+        {% endfor %}
+    </div>
+
+    <div class="reviews">
+        <h3>User Reviews</h3>
+        {% for review in user.userprofile.reviews.all %}
+            <div class="review">
+                <p>{{ review.content }}</p>
+                <p><strong>Rating:</strong> {{ review.rating }}</p>
+                <!-- Add more review fields as needed -->
+            </div>
+        {% empty %}
+            <p>No reviews found.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Add more sections as needed -->
+</div>
+
+{% endblock %}

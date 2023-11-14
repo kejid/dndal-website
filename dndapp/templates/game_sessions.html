@@ -1,0 +1,16 @@
+<!-- dndapp/templates/dndapp/game_sessions.html -->
+
+<h2>Game Sessions</h2>
+
+<a href="{% url 'create_game_session' %}">Create Game Session</a>
+
+<ul>
+    {% for game_session in game_sessions %}
+    <li>
+        <a href="{% url 'edit_game_session' game_session.id %}">Edit</a>
+        {{ game_session.description }}
+    </li>
+    {% empty %}
+    <li>No game sessions available.</li>
+    {% endfor %}
+</ul>

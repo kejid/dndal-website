@@ -1,0 +1,41 @@
+<!-- upcoming_games_template.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Upcoming Games</h1>
+    <hr>
+
+    {% if upcoming_games %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Game Name</th>
+                        <th>Start Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for game in upcoming_games %}
+                        <tr>
+                            <td>{{ game.name }}</td>
+                            <td>{{ game.start_time }}</td>
+                            <td>
+                                {% if game.end_time %}
+                                    Finished
+                                {% else %}
+                                    Upcoming
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No upcoming games at the moment.</p>
+    {% endif %}
+</div>
+{% endblock %}

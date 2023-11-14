@@ -1,0 +1,7 @@
+<!-- dndapp/templates/dndapp/create_character.html -->
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Character</button>
+</form>

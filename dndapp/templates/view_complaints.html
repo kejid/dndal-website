@@ -1,0 +1,11 @@
+<!-- dndapp/templates/dndapp/view_complaints.html -->
+
+<h2>Your Submitted Complaints</h2>
+{% for complaint in complaints %}
+    <div>
+        <p>Against: {{ complaint.against_user.username if complaint.against_user else complaint.against_game_session }}</p>
+        <p>Details: {{ complaint.details }}</p>
+        <p>Status: {{ complaint.status }}</p>
+        <p>Submitted On: {{ complaint.submitted_on }}</p>
+    </div>
+{% endfor %}

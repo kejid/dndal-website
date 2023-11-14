@@ -1,0 +1,61 @@
+<!-- dndapp/templates/users.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>All Users</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Player Rating</th>
+                    <th>Master Rating</th>
+                    <th>Reviews</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.profile.player_rating }}</td>
+                        <td>{{ user.profile.master_rating }}</td>
+                        <td>
+                            <a href="#" data-toggle="modal" data-target="#reviewsModal{{ user.id }}">View Reviews</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Reviews Modal -->
+    {% for user in users %}
+        <div class="modal fade" id="reviewsModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="reviewsModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reviewsModalLabel">Reviews for {{ user.username }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Display reviews for the user -->
+                        <ul>
+                            {% for review in user.profile.received_reviews.all %}
+                                <li>
+                                    Rating: {{ review.rating }}<br>
+                                    Comment: {{ review.comment }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

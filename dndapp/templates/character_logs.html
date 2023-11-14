@@ -1,0 +1,27 @@
+<!-- dndapp/templates/dndapp/character_logs.html -->
+
+<h1>Logs for {{ character.name }}</h1>
+
+<h2>Game Logs</h2>
+{% for log in game_logs %}
+    <div>
+        <p>{{ log.adventure_name }} - {{ log.date_played }}</p>
+        <!-- Display other details from the log -->
+    </div>
+{% endfor %}
+
+<h2>Trade Logs</h2>
+{% for log in trade_logs %}
+    <div>
+        <p>Trade with {{ log.traded_with }} - {{ log.trade_date }}</p>
+        <!-- Display other details from the log -->
+    </div>
+{% endfor %}
+
+<h2>Downtime Logs</h2>
+{% for log in downtime_logs %}
+    <div>
+        <p>Downtime Activity on {{ log.log_date }}</p>
+        <!-- Display other details from the log -->
+    </div>
+{% endfor %}

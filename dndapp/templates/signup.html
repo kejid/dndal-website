@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'dndapp/styles.css' %}">
+
+<div class="container">
+    <h2>Sign Up</h2>
+    <form method="post" id="signup-form" class="signup-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password1">Password</label>
+            <input type="password" id="password1" name="password1" required>
+        </div>
+        <div class="form-group">
+            <label for="password2">Confirm Password</label>
+            <input type="password" id="password2" name="password2" required>
+        </div>
+        <div class="form-group">
+            <label for="role">Role</label>
+            <select id="role" name="role" required>
+                <option value="">--Select a Role--</option>
+                <option value="player">Player</option>
+                <option value="master">Master</option>
+            </select>
+        </div>
+        <button type="submit" class="btn-primary">Sign Up</button>
+    </form>
+</div>
+
+<!-- Success Message Modal -->
+<div id="successModal" style="display:none;">
+    <div>
+        <span class="close">&times;</span>
+        <p>Registration successful! Redirecting to login...</p>
+    </div>
+</div>
+
+<script>
+    document.getElementById('signup-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        fetch('{% url 'signup' %}', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(data => {
+                    throw new Error('Server responded with an error: ' + JSON.stringify(data.errors));
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if(data.success) {
+                var modal = document.getElementById('successModal');
+                var span = document.getElementsByClassName("close")[0];
+                modal.style.display = "block";
+                span.onclick = function() {
+                    modal.style.display = "none";
+                };
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                };
+                setTimeout(function() { 
+                    window.location.href = '{% url 'login' %}';
+                }, 3000);
+            } else {
+                displayFormErrors(data.errors);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert(error.message);  // Display error message to user
+        });
+    });
+
+    function displayFormErrors(errors) {
+        // Logic to display errors on the form
+        alert('Form submission failed: ' + errors);
+        // Implement a better way to display these errors on the page
+    }
+</script>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

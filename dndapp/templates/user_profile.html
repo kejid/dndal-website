@@ -1,0 +1,8 @@
+<!-- dndapp/templates/dndapp/user_profile.html -->
+
+<h1>User Profile</h1>
+<p>Username: {{ user.username }}</p>
+<p>Email: {{ user.email }}</p>
+<!-- Add more user details here -->
+
+<a href="{% url 'edit_profile' %}">Edit Profile</a>

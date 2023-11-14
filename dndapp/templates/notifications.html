@@ -1,0 +1,13 @@
+<!-- dndapp/templates/dndapp/notifications.html -->
+
+<h1>Your Notifications</h1>
+
+{% for notification in notifications %}
+    <div class="notification">
+        <p>{{ notification.message }}</p>
+        <p>Received on: {{ notification.created_at }}</p>
+        {% if not notification.is_read %}
+            <a href="{% url 'mark_notification_as_read' notification.id %}">Mark as Read</a>
+        {% endif %}
+    </div>
+{% endfor %}
